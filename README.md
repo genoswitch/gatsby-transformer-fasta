@@ -1,1 +1,1 @@
-# gatsby-transformer-fasta
+# gatsby-transformer-genetic-sequences
