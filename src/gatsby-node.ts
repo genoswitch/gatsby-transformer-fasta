@@ -6,8 +6,6 @@ import seqparse from "seqparse";
 
 const supportedExtensions = ["fasta"];
 
-// async function onCreateNode({ node, loadNodeContent }) {
-
 export const onCreateNode: GatsbyNode["onCreateNode"] = async ({
 	node,
 	actions,
@@ -15,7 +13,7 @@ export const onCreateNode: GatsbyNode["onCreateNode"] = async ({
 	createContentDigest,
 	createNodeId,
 }) => {
-	const transformObject = (obj: any, id: any, type: any) => {
+	const transformObject = (obj: any, id: string, type: string) => {
 		const sequenceNode = {
 			...obj,
 			id,
@@ -32,19 +30,12 @@ export const onCreateNode: GatsbyNode["onCreateNode"] = async ({
 	};
 
 	// Only trigger when the file extension is "fasta".
-	if (!supportedExtensions.includes(node.extension as string)) {
-		console.log("RETURNING");
+	if (node.internal.type !== "File" || !supportedExtensions.includes(node.extension as string)) {
 		return;
 	}
-
-	console.log("RUNNING");
 
 	const content = await loadNodeContent(node);
 	const parsedContent = await seqparse(content);
 
-	transformObject(
-		parsedContent,
-		createNodeId(`${node.id} [${parsedContent.name}] >>> Sequence`),
-		camelCase(`${node.name} Sequence`)
-	);
+	transformObject(parsedContent, createNodeId(`${node.id} >>> Sequence`), camelCase(`Sequence`));
 };
