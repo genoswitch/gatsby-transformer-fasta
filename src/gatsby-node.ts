@@ -16,6 +16,8 @@ export const onCreateNode: GatsbyNode["onCreateNode"] = async ({
 	const transformObject = (obj: any, id: string, type: string) => {
 		const sequenceNode = {
 			...obj,
+			// Add the filename including the extension to the new node.
+			filename: `${node.name}.${node.extension}`,
 			id,
 			children: [],
 			parent: node.id,
