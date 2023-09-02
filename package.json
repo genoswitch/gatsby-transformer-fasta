@@ -4,15 +4,26 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src --out-dir . --extensions .ts"
   },
   "author": "",
   "license": "MIT",
-  "devDependencies": {
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin"
+  ],
+  "peerDependencies": {
     "gatsby": "^5.12.3"
   },
   "dependencies": {
     "lodash": "^4.17.21",
     "seqparse": "^0.2.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.22.10",
+    "@babel/core": "^7.22.11",
+    "@babel/preset-typescript": "^7.22.11",
+    "babel-preset-gatsby-package": "^3.12.0"
   }
 }
