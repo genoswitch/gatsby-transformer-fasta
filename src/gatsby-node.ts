@@ -29,7 +29,7 @@ export const onCreateNode: GatsbyNode["onCreateNode"] = async ({
 		actions.createParentChildLink({ parent: node, child: sequenceNode });
 	};
 
-	// Only trigger when the file extension is "fasta".
+	// Only trigger when the file extension is supported and the parent node is a File node.
 	if (node.internal.type !== "File" || !supportedExtensions.includes(node.extension as string)) {
 		return;
 	}
@@ -37,9 +37,5 @@ export const onCreateNode: GatsbyNode["onCreateNode"] = async ({
 	const content = await loadNodeContent(node);
 	const parsedContent = await seqparse(content);
 
-	transformObject(
-		parsedContent,
-		createNodeId(`${node.id} >>> GeneticSequence`),
-		camelCase(`GeneticSequence`)
-	);
+	transformObject(parsedContent, createNodeId(`${node.id} >>> GeneticSequence`), "GeneticSequence");
 };
