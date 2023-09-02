@@ -4,7 +4,7 @@ import { camelCase } from "lodash";
 
 import seqparse from "seqparse";
 
-const supportedExtensions = ["fasta"];
+const supportedExtensions = ["fasta", "fas", "gb", "seq", "xml", "sbd", "dna", "json"];
 
 export const onCreateNode: GatsbyNode["onCreateNode"] = async ({
 	node,
@@ -37,5 +37,9 @@ export const onCreateNode: GatsbyNode["onCreateNode"] = async ({
 	const content = await loadNodeContent(node);
 	const parsedContent = await seqparse(content);
 
-	transformObject(parsedContent, createNodeId(`${node.id} >>> Sequence`), camelCase(`Sequence`));
+	transformObject(
+		parsedContent,
+		createNodeId(`${node.id} >>> GeneticSequence`),
+		camelCase(`GeneticSequence`)
+	);
 };
